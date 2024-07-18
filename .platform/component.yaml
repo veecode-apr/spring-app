@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: spring-app
+  description: "sample description"
+  annotations:
+    github.com/project-slug: veecode-apr/spring-app
+    backstage.io/techdocs-ref: dir:..
+    backstage.io/kubernetes-id: "spring-app"
+    vault.io/secrets-path: "spring-app"
+    grafana/dashboard-selector: "spring-app"
+    grafana/alert-label-selector: "alertname=spring-app"
+    argocd/proxy-url: '/argocd/api'
+    argocd/app-name: "spring-app"
+    kong-manager/service-name: veecode-apr.spring-app-service-0.8080
+    kong-manager/instance: /kong-manager/api
+spec:
+  type: service
+  lifecycle: experimental
+  owner: "group:default/admin"

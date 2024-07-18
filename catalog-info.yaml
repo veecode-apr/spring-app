@@ -1,0 +1,8 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: spring-app-location
+  description: Location to import all spring-app catalog components
+spec:
+  targets:
+    - ./.platform/*.yaml

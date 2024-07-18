@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-app 
+spec:
+  selector:
+    matchLabels:
+      app: spring-app
+  template:
+    metadata:
+      labels:
+        app: spring-app
+    spec:
+      containers:
+        - image: okteto.dev/java-gradle-spring-app:1.0.0
+          name: spring-app
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-app
+spec:
+  type: ClusterIP
+  ports:
+    - name: "spring-app"
+      port: 8080
+  selector:
+    app: spring-app
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spring-app
+  annotations:
+    dev.okteto.com/generate-host: spring-app
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: spring-app
+                port:
+                  number: 8080
+            path: /
+            pathType: ImplementationSpecific
